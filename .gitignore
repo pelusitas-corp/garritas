@@ -1,0 +1,27 @@
+# Dependencias
+node_modules/
+
+# Expo y builds
+.expo/
+dist/
+web-build/
+android/
+ios/
+
+# Variables de entorno y claves (NUNCA se suben)
+.env
+.env*.local
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Logs
+*.log
+npm-debug.*
+
+# Sistema operativo y editor
+.DS_Store
+Thumbs.db
+.vscode/
