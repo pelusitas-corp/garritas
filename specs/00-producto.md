@@ -141,3 +141,47 @@ Resultados `[PENDIENTE]`; no se citan hasta tenerlos.
 | RI-03 · RI-04 | Push con Firebase Cloud Messaging (reintento a los 5 min) y correo transaccional al adoptante | Prueba de envío y de fallo |
 | RI-05 | Toda comunicación por HTTPS (TLS 1.2+) | Revisión de configuración |
 | Proyecto | Solo herramientas gratuitas o capa gratuita de servicios en la nube | Revisión de costos (presupuesto $0) |
+## 9. Fuera de alcance del MVP
+- Seguimiento post-adopción: la pantalla "Seguimiento de Mi Garrita" pasa a la V2.0.
+- Pagos, donaciones y cualquier módulo monetario (SRS 1.2, Retrospectiva 1).
+- Mensajería masiva y difusión automatizada en redes sociales (SRS 1.2, Retrospectiva 1).
+- Versión web de escritorio y reportes analíticos avanzados (SRS 1.2).
+- Expediente médico (vacunación, esterilización): estaba en el SRS v1
+  y no quedó en el SRS v2.
+- Todo lo que no esté en el SRS v2 o en una spec Aprobada.
+
+## 10. Decisiones tomadas
+| ID | Decisión | Fuente |
+|---|---|---|
+| D-01 | Cuestionario en dos niveles: campos mínimos obligatorios para el cálculo y validaciones secundarias presenciales o posteriores (resuelve RF-02 vs. RNF-03) | Lista Consolidada, sección 7 (E-1, E-2, E-3) |
+| D-02 | Una solicitud con compatibilidad menor al 30 % se etiqueta "No Apto" | RF-03 |
+| D-03 | Solo una pre-adopción en curso por animal | RF-05 |
+| D-04 | El contacto del adoptante se oculta hasta la pre-aprobación | RF-12 (E-3) |
+| D-05 | El cálculo tarda ≤ 3 s; si otro documento indica otro tiempo, manda RNF-01 | RNF-01 |
+| D-06 | Backend, autenticación y base de datos en Firebase | RC-02 (SRS v2) |
+| D-07 | Repositorio público: las entrevistadas se identifican solo por código y rol | Acuerdo del equipo, 2026-11-05 |
+
+## 11. Pendientes `[PENDIENTE]`
+| ID | Qué falta decidir | Quién decide | Bloquea |
+|---|---|---|---|
+| PO-01 | ¿El Voluntario es un rol propio, va con Albergue o es una opción del Adoptante? (SRS: 3 roles; prototipo: 2 botones) | PO | F-01, F-09 |
+| PO-02 | Quién marca un animal como "Adoptado" y en qué momento | PO | F-03, F-08 |
+| PO-03 | ¿Hay alerta push a voluntarios cuando se necesita casa temporal? (RI-03 y Plan de Negocios la mencionan; no hay RF) | PO | F-10, F-11 |
+| PO-04 | Variables y pesos del algoritmo de compatibilidad. El SRS dice energía vs. espacio; el prototipo pregunta hogar, tiempo libre y experiencia | PO | F-04, F-05 |
+| PO-05 | Cómo se registra y accede el adoptante (el prototipo usa teléfono y código; RF-09 solo cubre albergues) | PO | F-01, F-06 |
+| PO-06 | ¿Los albergues se registran en la app o sus cuentas se crean previamente? (RF-09 dice "previamente registrados") | PO | F-01 |
+| PO-07 | ¿El chat directo (botón en "Resguardos de Emergencia") entra al MVP? No hay RF | PO | F-10 |
+| PO-08 | ¿Directorio, mapa o ambos? (RF-07). Incluye la API de mapas y su cuota gratuita | Equipo | F-10 |
+| PO-09 | "Ofrecer Casa Temporal" pide cupos, especie, teléfono y colonia; RF-06 solo pide Disponible / Ocupado | PO | F-09 |
+| PO-10 | ¿El MVP pide subir identificación y comprobante de domicilio? RNF-02 los cifra, pero ningún RF los solicita | PO | F-04, Transversal |
+| PO-11 | Pantallas "Mi Perfil" y "Mis Solicitudes" sin un RF explícito | PO | F-06 |
+| PO-12 | Texto del aviso de privacidad y del consentimiento (LFPDPPP) | Equipo | Transversal |
+| PO-13 | Dónde ve el adoptante la notificación de pre-aprobación | PO | F-11 |
+| PO-14 | Verificar el origen de la cita "30 mensajes al día, 25 no cumplen" (ENS P6 vs. transcripciones) | Equipo | — |
+| PO-15 | Resultados de la encuesta masiva | Equipo | — |
+| PO-16 | Fecha de entrega final del proyecto | Equipo | Plan de sprints |
+
+## Historial de cambios
+| Versión | Fecha | Autora | Cambio |
+|---|---|---|---|
+| 0.1 | 2026-11-06 | Paulina Mendoza Quiroz | Creación (bloques 1 a 3) |
