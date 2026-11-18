@@ -1,0 +1,12 @@
+rules_version = '2';
+
+// Reglas de seguridad de Cloud Firestore (arquitectura §5).
+// Versión inicial del setup: NIEGA TODO. Nadie puede leer ni escribir.
+// Cada feature abre solo lo que su spec permite, con su prueba en el emulador.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
