@@ -1,7 +1,7 @@
 <!-- Ruta: docs/privacidad/aviso-privacidad-integral.md -->
 # Aviso de privacidad integral de Garritas
 
-**Versión 1.0 (borrador)** · Última actualización: [PENDIENTE: fecha de publicación]
+**Versión 1.0 (borrador)** · Última actualización: [PENDIENTE: fecha de publicación, PO-12]
 
 ## 1. ¿Quién cuida tus datos?
 Garritas es una app creada como proyecto académico por estudiantes de la
@@ -9,7 +9,7 @@ Facultad de Ingeniería, Arquitectura y Diseño (FIAD) de la UABC.
 Las responsables de tus datos personales somos **Jennifer Salgado Pacheco**
 y **Paulina Mendoza Quiroz** (equipo YENIWIWI).
 
-- Domicilio: FIAD UABC
+- Domicilio: FIAD UABC [PENDIENTE: domicilio completo]
 - Correo de contacto: yeniwiwiteam@gmail.com
 
 ## 2. ¿Qué datos usamos?
@@ -22,7 +22,7 @@ Tu contraseña la gestiona Firebase Authentication (de Google) y nosotras no pod
 tipo de vivienda, si es propia o rentada (y si tienes permiso del dueño), patio y bardas,
 tiempo disponible, experiencia con animales, con quién vives (niños, otras mascotas)
 y tus preferencias (por ejemplo, un animal que suelte poco pelo).
-[PENDIENTE PO-04: lista final de preguntas]
+[PENDIENTE: PO-04, lista final de preguntas]
 
 **Mientras usas Garritas:** tu perfil Garritas, tu porcentaje de compatibilidad con cada
 animal, y tus solicitudes de adopción con su estado.
@@ -37,7 +37,7 @@ Solo para que Garritas funcione:
 3. Asignarte tu perfil Garritas.
 4. Registrar tus solicitudes de adopción y mostrarte su estado.
 5. Que el albergue evalúe tu solicitud y, si la pre-aprueba, te contacte para coordinar la visita.
-6. Avisarte si este aviso cambia.
+6. Escribirte para avisarte si este aviso cambia.
 
 Todas son necesarias para el servicio. **No usamos tus datos para publicidad ni los vendemos.**
 
@@ -45,7 +45,7 @@ Todas son necesarias para el servicio. **No usamos tus datos para publicidad ni 
 **Con el albergue o rescatista que publicó al animal que quieres adoptar:**
 - Cuando envías tu solicitud, ve tu nombre, tu porcentaje de compatibilidad y,
   si es menor a 30 %, la etiqueta "No Apto".
-  [PENDIENTE: confirmar si también ve un resumen de tus respuestas del cuestionario]
+- No ve tus respuestas del cuestionario.
 - Solo si pre-aprueba tu solicitud, ve tu teléfono y tu correo para coordinar la visita.
 
 El albergue conoce este aviso y debe cuidar tus datos con las mismas obligaciones que nosotras.
@@ -53,7 +53,8 @@ Al marcar la casilla de aceptación, **aceptas que compartamos estos datos con e
 Sin esto no podemos enviar tu solicitud, porque el albergue es quien decide la adopción.
 
 **Con nuestro proveedor de tecnología:** Google Firebase guarda tus datos en servidores
-en Estados Unidos (Los Ángeles). Lo hace por cuenta nuestra y solo para que la app funcione.
+en Estados Unidos; la base de datos de Garritas está en Los Ángeles. Lo hace por cuenta
+nuestra y solo para que la app funcione.
 
 No compartimos tus datos con nadie más, salvo que una autoridad lo exija conforme a la ley.
 
@@ -63,7 +64,7 @@ No compartimos tus datos con nadie más, salvo que una autoridad lo exija confor
 - La información viaja por una conexión segura (HTTPS).
 
 ## 6. ¿Cuánto tiempo los guardamos?
-Hasta que termine el semestre 2026-2 de la UABC [PENDIENTE: fecha].
+Hasta que termine el semestre 2026-2 de la UABC [PENDIENTE: fecha, PO-16].
 Después borraremos tu cuenta y tus datos de Garritas.
 Los datos que el albergue ya recibió quedan bajo su propia responsabilidad.
 
@@ -74,7 +75,8 @@ Puedes pedirnos:
 - **Cancelación:** que borremos tus datos.
 - **Oposición:** que dejemos de usarlos para algún fin.
 
-**Cómo hacerlo:** escríbenos a [PENDIENTE: correo] desde el correo con el que te registraste.
+**Cómo hacerlo:** escríbenos al correo de contacto de la sección 1 desde el correo con el que
+te registraste.
 Incluye:
 1. tu nombre completo;
 2. el correo o teléfono donde quieres recibir la respuesta;
@@ -99,7 +101,7 @@ La app no te pide identificación: el albergue la revisa en persona durante la v
 ## 10. Cambios a este aviso
 Si cambia, publicaremos la nueva versión con su fecha en:
 https://github.com/pelusitas-corp/garritas/blob/main/docs/privacidad/aviso-privacidad-integral.md
-y te avisaremos al correo con el que te registraste.
+y nosotras te escribiremos al correo con el que te registraste.
 
 ## 11. ¿Dónde puedes acudir?
 Si crees que no cuidamos bien tus datos, puedes acudir a la Secretaría Anticorrupción

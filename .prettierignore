@@ -11,5 +11,6 @@ expo-env.d.ts
 
 # Documentos que mantiene el equipo a mano (Prettier no los reformatea)
 specs/
+docs/
 CLAUDE.md
 README.md
