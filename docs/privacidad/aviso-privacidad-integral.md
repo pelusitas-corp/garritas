@@ -9,7 +9,7 @@ Facultad de Ingeniería, Arquitectura y Diseño (FIAD) de la UABC.
 Las responsables de tus datos personales somos **Jennifer Salgado Pacheco**
 y **Paulina Mendoza Quiroz** (equipo YENIWIWI).
 
-- Domicilio: FIAD UABC [PENDIENTE: domicilio completo]
+- Domicilio: FIAD UABC. Carretera Transpeninsular Ensenada-Tijuana #3917, Colonia Playitas, C.P. 22860, Ensenada, Baja California
 - Correo de contacto: yeniwiwiteam@gmail.com
 
 ## 2. ¿Qué datos usamos?
@@ -76,12 +76,12 @@ Puedes pedirnos:
 - **Oposición:** que dejemos de usarlos para algún fin.
 
 **Cómo hacerlo:** escríbenos al correo de contacto de la sección 1 desde el correo con el que
-te registraste.
+te registraste. Así confirmamos que eres tú: solo atendemos solicitudes que lleguen desde
+ese correo.
 Incluye:
 1. tu nombre completo;
 2. el correo o teléfono donde quieres recibir la respuesta;
 3. qué derecho quieres ejercer y sobre qué datos.
-[PENDIENTE: cómo acreditarás tu identidad — validar con asesor]
 
 **Plazos:** te responderemos en un máximo de 20 días. Si tu solicitud procede,
 la aplicaremos en un máximo de 15 días después de responderte. Si necesitamos más tiempo,
