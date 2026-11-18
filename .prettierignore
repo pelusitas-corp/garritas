@@ -1,0 +1,15 @@
+# Carpetas generadas o de terceros
+node_modules/
+.expo/
+dist/
+android/
+ios/
+coverage/
+package-lock.json
+assets/
+expo-env.d.ts
+
+# Documentos que mantiene el equipo a mano (Prettier no los reformatea)
+specs/
+CLAUDE.md
+README.md
