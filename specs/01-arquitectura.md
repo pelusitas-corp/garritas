@@ -171,3 +171,105 @@ lectura y escritura **en el servidor**, aunque alguien modifique la app.
 - **Riesgo conocido:** como el % se calcula en el teléfono (§6), una app
   modificada podría enviar un porcentaje falso. Se acepta en el MVP por el
   presupuesto $0; en la V2, el cálculo pasa a Cloud Functions.
+
+  ## 6. Cálculo del porcentaje (dónde y cuándo)
+El cálculo se hace **en el teléfono del adoptante al abrir "Descubrir"**
+(D-23), con **funciones puras**: reciben datos y devuelven un resultado,
+sin usar Firebase ni pantallas. Así se pueden probar solas y siempre dan
+el mismo resultado con los mismos datos (RF-03, RF-19).
+
+**Al abrir "Descubrir":**
+1. Lee `cuestionarios/{uid}`. Si no está completo, lleva a la primera
+   pregunta sin responder (RF-02).
+2. Consulta los animales con estado `"Disponible"` (RF-10).
+3. Descarta los que no tengan completo su perfil de compatibilidad (RF-03).
+4. Descarta los que no pasen un filtro no negociable (RF-17).
+5. Calcula el % de cada animal con similitud de coseno ponderada
+   (RF-03): un entero de 0 a 100.
+6. Ordena de mayor a menor (RF-26). Si no queda ninguno, muestra:
+   "Por ahora no hay mascotas compatibles con tu hogar. Vuelve pronto".
+7. Si tarda más de 3 s, muestra el indicador de carga y "Calculando
+   compatibilidad, verifica tu conexión a internet" (RNF-01).
+
+**Otras funciones del motor:**
+- **Explicación (RF-20):** el % es la suma de lo que aporta cada dimensión;
+  la pantalla "Match" muestra las 2 o 3 que más aportan (o las de menor
+  coincidencia si el % es menor a 30).
+- **Perfil Garritas (RF-19):** se asigna a partir de las respuestas al
+  presionar "Ver mi perfil Garritas". No cambia ningún porcentaje.
+- **Al enviar la solicitud (RF-11):** se guarda el % mostrado en "Match"
+  y `noApto = porcentaje < 30` (RF-18). Antes se vuelve a revisar el
+  filtro no negociable (RF-17, caso del enlace directo).
+- Dimensiones, pesos, filtros y reglas de los perfiles: `[PENDIENTE:
+  PO-04, se definen en F-04 y F-05]`.
+
+## 7. Estructura de carpetas
+Navegación con **Expo Router**: cada archivo dentro de `app/` es una
+pantalla. La lógica de cada lado vive en su propia carpeta para que
+cada integrante trabaje sin pisar a la otra.
+
+    garritas/
+    ├── app/                  ← pantallas (rutas)
+    │   ├── (acceso)/         ← bienvenida, aviso, registro, inicio de sesión
+    │   ├── (adoptante)/      ← cuestionario, perfil, descubrir, detalle, match, mis solicitudes, mi perfil
+    │   └── (albergue)/       ← alta de mascota, solicitudes, detalle de solicitud
+    ├── src/
+    │   ├── adoptante/        ← componentes y lógica del adoptante
+    │   ├── albergue/         ← componentes y lógica del albergue
+    │   ├── matchmaking/      ← funciones puras: filtros, %, explicación y perfil
+    │   ├── firebase/         ← configuración y acceso a Auth y Firestore
+    │   └── compartido/       ← tema Soft UI, componentes base, tipos y mensajes
+    ├── tests/                ← pruebas del motor y de las reglas de seguridad
+    ├── firestore.rules       ← reglas de seguridad (§5)
+    ├── specs/                ← specs (SDD)
+    ├── CLAUDE.md             ← instrucciones para Claude Code
+    └── .env                  ← configuración de Firebase (no se sube)
+
+| Carpeta | Responsable (reparto) |
+|---|---|
+| `src/adoptante/`, `src/matchmaking/`, `app/(adoptante)/` | Paulina |
+| `src/albergue/`, `src/firebase/`, `app/(acceso)/`, `app/(albergue)/`, `firestore.rules` | Jennifer |
+| `src/compartido/` | Ambas (cambios con PR revisado por la otra) |
+
+## 8. Convenciones técnicas
+- **TypeScript estricto**, sin `any`. **ESLint (Airbnb) + Prettier**, con
+  2 espacios. Nombres: `camelCase` (variables y funciones), `PascalCase`
+  (componentes y tipos) y `UPPER_SNAKE_CASE` (constantes).
+- **Mensajes literales del SRS:** todos los textos de error y de estado
+  viven en `src/compartido/mensajes.ts`, copiados **exactamente** del
+  SRS v3.0, para que pantallas y pruebas usen el mismo texto.
+- **Tema Soft UI** en `src/compartido/tema.ts`: colores `#F5EACC`,
+  `#4A2E21`, `#D3F8E2`, `#A1B2D0` y `#25314C`, tipografía Nunito, bordes
+  ≥ 24 px y botones píldora.
+- **Configuración** en `.env` con prefijo `EXPO_PUBLIC_`. Los datos de
+  configuración de Firebase no son secretos; la protección real está en
+  las reglas de §5. Aun así, `.env` no se sube al repo.
+- **Pruebas:** Jest para el motor de matchmaking y el emulador de
+  Firebase para las reglas de seguridad. **El nombre de cada prueba es
+  su criterio de aceptación** (p. ej. `RF-18 no válido: con 30 % no
+  muestra "No Apto"`).
+- **Git:** ramas `feature/`, `fix/`, `docs/`, `chore/`, `test/`; Conventional
+  Commits en español con los RF en el título; todo entra por PR revisado
+  por la otra integrante.
+
+## 9. Fuera de alcance de esta arquitectura
+- Plan Blaze, Cloud Functions, Cloud Storage, Cloud Messaging y correo
+  transaccional (versión posterior).
+- Versión web, panel de administración y registro de albergues desde la app.
+- Recuperación y cambio de contraseña (no están en el SRS v3.0).
+- Analítica, reportes y respaldos automáticos.
+
+## 10. Pendientes
+| ID | Pendiente | Se resuelve en |
+|---|---|---|
+| — | Versiones de Expo SDK y del SDK de Firebase; ubicación de Firestore | Setup (v0.2 de esta spec) |
+| PO-04 | Claves de `respuestas`, `perfilCompatibilidad` y `perfilGarritas`; pesos y filtros | Chat "Algoritmo" → F-04, F-05 |
+| PO-02 | Estado "Adoptado": quién lo marca y cuándo | Por decidir |
+| — | Máximo de fotos por animal | F-02 |
+| — | ¿Se permiten dos solicitudes del mismo adoptante al mismo animal? | F-06 |
+| PO-12 | Texto del aviso de privacidad | F-01 |
+
+## Historial de cambios
+| Versión | Fecha | Cambio | Autoras |
+|---|---|---|---|
+| 0.1 | 2026-11-18 | Primera versión: contexto, stack, fotos en Firestore (PO-17), roles, modelo de datos, reglas, cálculo, carpetas y convenciones | Jennifer Salgado Pacheco, Paulina Mendoza Quiroz |
