@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Estado | Borrador |
+| Estado | Aprobada |
 | Versión | 0.2 |
 | Fecha | 2026-11-18 |
 | Autoras | Paulina Mendoza Quiroz (Product Owner) y Jennifer Salgado Pacheco (Scrum Master) |
