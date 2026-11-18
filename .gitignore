@@ -7,6 +7,14 @@ dist/
 web-build/
 android/
 ios/
+expo-env.d.ts
+.kotlin/
+*.orig.*
+.metro-health-check*
+
+# TypeScript y pruebas
+*.tsbuildinfo
+coverage/
 
 # Variables de entorno y claves (NUNCA se suben)
 .env
@@ -16,6 +24,7 @@ ios/
 *.p12
 *.key
 *.mobileprovision
+*.pem
 
 # Logs
 *.log
