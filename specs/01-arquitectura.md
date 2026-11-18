@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Estado | Aprobada |
-| Versión | 0.1 |
+| Versión | 0.2 |
 | Fecha | 2026-11-18 |
 | Autoras | Jennifer Salgado Pacheco (Scrum Master) y Paulina Mendoza Quiroz (Product Owner) |
 | Fuentes | SRS v3.0 (ISO/IEC/IEEE 29148), `00-producto.md`, prototipo de Figma "Garritas" |
@@ -61,10 +61,11 @@
 **1 MiB como máximo por documento**. Alcanzan para la demo y las pruebas
 de usabilidad.
 
-**Versiones:** se usa la versión estable vigente de Expo SDK y del SDK de
-Firebase el día del setup `[PENDIENTE: se registran aquí en la v0.2]`.
-**Ubicación de Firestore:** `[PENDIENTE: se elige en el setup; no se puede
-cambiar después]`.
+**Versiones (setup, 2026-11-18):** Expo SDK 58 (`expo` 58.0.26, React
+Native 0.88.1, React 19.3.0, Expo Router 58.0.32), SDK de Firebase para
+JavaScript 13.4.0 y TypeScript 6.0.3.
+**Ubicación de Firestore:** `us-west2` (Los Ángeles, EE. UU.). No se puede
+cambiar. El aviso de privacidad informa esta ubicación.
 
 ### 2.1 Decisión: fotografías del animal (PO-17)
 - **Contexto:** Cloud Storage for Firebase exige el plan Blaze (de pago,
@@ -172,7 +173,7 @@ lectura y escritura **en el servidor**, aunque alguien modifique la app.
   modificada podría enviar un porcentaje falso. Se acepta en el MVP por el
   presupuesto $0; en la V2, el cálculo pasa a Cloud Functions.
 
-  ## 6. Cálculo del porcentaje (dónde y cuándo)
+## 6. Cálculo del porcentaje (dónde y cuándo)
 El cálculo se hace **en el teléfono del adoptante al abrir "Descubrir"**
 (D-23), con **funciones puras**: reciben datos y devuelven un resultado,
 sin usar Firebase ni pantallas. Así se pueden probar solas y siempre dan
@@ -221,6 +222,7 @@ cada integrante trabaje sin pisar a la otra.
     │   └── compartido/       ← tema Soft UI, componentes base, tipos y mensajes
     ├── tests/                ← pruebas del motor y de las reglas de seguridad
     ├── firestore.rules       ← reglas de seguridad (§5)
+    ├── docs/privacidad/      ← aviso de privacidad integral (PO-12, RF-25)
     ├── specs/                ← specs (SDD)
     ├── CLAUDE.md             ← instrucciones para Claude Code
     └── .env                  ← configuración de Firebase (no se sube)
@@ -229,7 +231,7 @@ cada integrante trabaje sin pisar a la otra.
 |---|---|
 | `src/adoptante/`, `src/matchmaking/`, `app/(adoptante)/` | Paulina |
 | `src/albergue/`, `src/firebase/`, `app/(acceso)/`, `app/(albergue)/`, `firestore.rules` | Jennifer |
-| `src/compartido/` | Ambas (cambios con PR revisado por la otra) |
+| `src/compartido/`, `docs/` | Ambas (cambios con PR revisado por la otra) |
 
 ## 8. Convenciones técnicas
 - **TypeScript estricto**, sin `any`. **ESLint (Airbnb) + Prettier**, con
@@ -262,14 +264,14 @@ cada integrante trabaje sin pisar a la otra.
 ## 10. Pendientes
 | ID | Pendiente | Se resuelve en |
 |---|---|---|
-| — | Versiones de Expo SDK y del SDK de Firebase; ubicación de Firestore | Setup (v0.2 de esta spec) |
 | PO-04 | Claves de `respuestas`, `perfilCompatibilidad` y `perfilGarritas`; pesos y filtros | Chat "Algoritmo" → F-04, F-05 |
 | PO-02 | Estado "Adoptado": quién lo marca y cuándo | Por decidir |
 | — | Máximo de fotos por animal | F-02 |
 | — | ¿Se permiten dos solicitudes del mismo adoptante al mismo animal? | F-06 |
-| PO-12 | Texto del aviso de privacidad | F-01 |
+| PO-12 | Texto del aviso de privacidad: borrador en `docs/privacidad/aviso-privacidad-integral.md`; falta pasarlo al SRS | F-01 |
 
 ## Historial de cambios
 | Versión | Fecha | Cambio | Autoras |
 |---|---|---|---|
 | 0.1 | 2026-11-18 | Primera versión: contexto, stack, fotos en Firestore (PO-17), roles, modelo de datos, reglas, cálculo, carpetas y convenciones | Jennifer Salgado Pacheco, Paulina Mendoza Quiroz |
+| 0.2 | 2026-11-18 | Versiones del setup (Expo SDK 58, Firebase 13.4.0), ubicación de Firestore (`us-west2`), carpeta `docs/privacidad/` y estado de PO-12 | Jennifer Salgado Pacheco, Paulina Mendoza Quiroz |
