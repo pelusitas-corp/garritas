@@ -89,3 +89,85 @@ cambiar después]`.
 - **Consecuencias:** costo $0 y todo dentro de Firebase. A cambio, más
   descargas de datos y un límite pequeño de fotos. **En la V2 se migra a
   Cloud Storage.**
+
+## 3. Roles y acceso
+| Rol | Cómo obtiene su cuenta | Pantallas (RF-24) |
+|---|---|---|
+| Adoptante | Se registra en la app: aviso de privacidad (RF-25) → "Crear cuenta" (RF-23) | Cuestionario, Perfil Garritas, Descubrir, Detalle, Match, Mis solicitudes, Mi perfil |
+| Albergue | La crea el equipo YENIWIWI antes de su uso (D-18, SRS §2.4) | Alta de mascota, Solicitudes, Detalle de solicitud |
+
+- El rol se guarda en `usuarios/{uid}.rol` (`"adoptante"` o `"albergue"`).
+  **Desde la app solo se puede crear el rol `"adoptante"`**, y nadie puede
+  cambiar su propio rol (§5).
+- **Alta de una cuenta de albergue (procedimiento del equipo):**
+  1. Consola de Firebase → Authentication → Agregar usuario (correo y
+     contraseña temporal).
+  2. Consola de Firebase → Firestore → crear `usuarios/{uid}` con
+     `rol: "albergue"` y el nombre del albergue.
+  3. Entregar las credenciales al albergue en persona.
+- Al iniciar sesión (RF-09), la app lee `usuarios/{uid}.rol` y abre la
+  pantalla de inicio de ese rol. Si alguien abre una pantalla de otro rol,
+  la app muestra: "No tienes permiso para ver esta sección" (RF-24).
+- Cambio y recuperación de contraseña: no existen en el SRS v3.0 →
+  fuera de alcance de esta versión.
+
+## 4. Modelo de datos (Cloud Firestore)
+Analogía: Firestore es un archivero. Cada **colección** es un cajón y cada
+**documento** es una ficha dentro del cajón (máx. 1 MiB por ficha).
+
+| Colección / documento | Campos principales | Quién lo crea | Req. |
+|---|---|---|---|
+| `usuarios/{uid}` | `rol`, `nombre`, `correo`, `telefono` (solo adoptante), `consentimiento: { aceptado, fecha }` (solo adoptante), `creadoEn` | Adoptante al registrarse; equipo para albergues | RF-23, RF-24, RF-25 |
+| `cuestionarios/{uid}` | `respuestas` (pregunta → respuesta), `completo`, `perfilGarritas`, `actualizadoEn` | Adoptante | RF-02, RF-15, RF-16, RF-19 |
+| `animales/{animalId}` | `albergueId`, `nombreAlbergue`, `nombre`, `especie`, `edad`, `tamano`, `vacunado`, `esterilizado`, `perfilCompatibilidad` (una opción por dimensión), `miniatura`, `estado`, `creadoEn` | Albergue | RF-01, RF-10, RF-14, RF-28 |
+| `animales/{animalId}/fotos/{fotoId}` | `datos` (foto comprimida), `orden` | Albergue | RF-13 |
+| `solicitudes/{solicitudId}` | `animalId`, `albergueId`, `adoptanteId`, `nombreAdoptante`, `nombreAnimal`, `nombreAlbergue`, `miniaturaAnimal`, `porcentaje` (entero 0–100), `noApto`, `estado`, `creadaEn`, `actualizadaEn` | Adoptante al enviar | RF-04, RF-11, RF-18, RF-27 |
+| `solicitudes/{solicitudId}/privado/contacto` | `telefono`, `correo` | Adoptante al enviar | RF-12 |
+
+**Valores permitidos**
+- `animales.estado`: `"Disponible"` · `"En pre-adopción"`.
+  El estado "Adoptado" depende de PO-02 `[PENDIENTE]`.
+- `solicitudes.estado`: `"Pendiente"` · `"Pre-aprobada"` · `"Rechazada"`.
+- `perfilCompatibilidad`, `respuestas` y `perfilGarritas`: sus claves y
+  opciones dependen del algoritmo (PO-04) `[PENDIENTE: se definen en F-04
+  y F-05]`.
+
+**Por qué así**
+- **El contacto va en una ficha aparte** (`privado/contacto`): el albergue
+  ve la solicitud (nombre y %) pero no el teléfono ni el correo hasta
+  pre-aprobar (RF-12, D-04).
+- **Se copian nombres y miniatura a la solicitud** para que "Mis
+  solicitudes" y "Solicitudes" se carguen con una sola consulta, sin
+  abrir cada animal o usuario.
+- **El consentimiento** (RF-25) se acepta antes de que exista la cuenta:
+  la app lo guarda en memoria y lo escribe con su fecha en
+  `usuarios/{uid}` al crear la cuenta (RF-23).
+- **Borrador del cuestionario** (RF-16): cada respuesta se guarda en el
+  teléfono al momento y se sincroniza con `cuestionarios/{uid}` cuando
+  hay conexión.
+- ¿Se puede enviar dos solicitudes al mismo animal? El SRS no lo define
+  `[PENDIENTE: decidir en F-06]`.
+
+## 5. Reglas de seguridad (resumen)
+Las reglas de Firestore son el "guardia de la ventanilla": revisan cada
+lectura y escritura **en el servidor**, aunque alguien modifique la app.
+
+| Colección | Leer | Crear / modificar |
+|---|---|---|
+| `usuarios/{uid}` | Solo el dueño | Crear: solo el dueño y con `rol: "adoptante"`. Nadie cambia su `rol` |
+| `cuestionarios/{uid}` | Solo el dueño | Solo el dueño (adoptante) |
+| `animales` y `fotos` | Cualquier usuario con sesión | Solo un albergue, y solo sus propios animales (`albergueId` = su `uid`) |
+| `solicitudes` | El adoptante que la envió o el albergue dueño del animal | Crear: solo un adoptante, para sí mismo, con estado `"Pendiente"` y si el animal está `"Disponible"` (RF-11). Modificar: solo el albergue dueño, de `"Pendiente"` a `"Pre-aprobada"` o `"Rechazada"` (RF-05, RF-21) |
+| `privado/contacto` | El adoptante siempre; el albergue **solo si la solicitud está `"Pre-aprobada"`** (RF-12) | Solo el adoptante, al enviar la solicitud |
+| Cualquier otra ruta | Nadie | Nadie |
+
+- **Una sola pre-adopción por animal (RF-22):** al pre-aprobar, la app
+  cambia en una sola operación la solicitud a `"Pre-aprobada"` y el animal
+  a `"En pre-adopción"`. La regla solo lo permite si el animal seguía
+  `"Disponible"`.
+- **Verificación (RNF-02):** las reglas se prueban con el emulador de
+  Firebase. Ejemplos: un adoptante no puede leer los datos de otro, y un
+  albergue no puede leer el contacto de una solicitud `"Pendiente"`.
+- **Riesgo conocido:** como el % se calcula en el teléfono (§6), una app
+  modificada podría enviar un porcentaje falso. Se acepta en el MVP por el
+  presupuesto $0; en la V2, el cálculo pasa a Cloud Functions.
