@@ -157,3 +157,77 @@ WhatsApp, fichas en papel y hojas de Excel.
 | RI-02 | Cámara y galería para las fotos; si se niega la cámara: "Habilita el acceso a la cámara desde los ajustes de tu teléfono o elige una foto de tu galería" | Prueba con permiso denegado |
 | RI-05 | Toda comunicación por HTTPS (TLS 1.2+) | Revisión de configuración |
 | Proyecto | Solo herramientas gratuitas o capas gratuitas (presupuesto $0) | Revisión de costos |
+
+## 9. Fuera de alcance del MVP
+- **Versión posterior (Won't en esta versión):** notificaciones push y por
+  correo (F-11); chat directo; subida y cifrado de identificaciones y
+  comprobantes; seguimiento posadopción ("Seguimiento de Mi Garrita", V2.0);
+  registro de albergues desde la app (D-18); límite de solicitudes activas,
+  "Cancelar solicitud" y "Contactar por WhatsApp" (D-33); recuperación y
+  cambio de contraseña; Cloud Storage y Cloud Functions (D-36, D-37).
+- **Siempre fuera:** pagos y donaciones; mensajería masiva y difusión en
+  redes sociales; versión web de escritorio; reportes analíticos
+  avanzados; expediente médico.
+- Todo lo que no esté en el SRS v3.0 o en una spec Aprobada.
+- Las pantallas fuera del MVP se conservan en la página "Fuera del MVP"
+  del prototipo de Figma.
+
+## 10. Decisiones tomadas
+| ID | Decisión | Fuente |
+|---|---|---|
+| D-01 | Cuestionario en dos niveles: campos mínimos para el cálculo en la app y validaciones secundarias en persona | Lista Consolidada (E-1, E-2, E-3) |
+| D-02 | Una solicitud con compatibilidad < 30 % se etiqueta "No Apto" | RF-18 |
+| D-03 | Solo una pre-adopción en curso por animal | RF-22 |
+| D-04 | El contacto del adoptante se oculta hasta la pre-aprobación | RF-12 (E-3) |
+| D-05 | El cálculo tarda ≤ 3 s; si otro documento dice otra cosa, manda RNF-01 | RNF-01 |
+| D-06 | Backend, autenticación y base de datos en Firebase | RC-02 |
+| D-07 | Repositorio público: las entrevistadas se identifican solo por código y rol | Equipo, 2026-11-05 |
+| D-08 | Algoritmo híbrido: filtros no negociables + % con similitud de coseno ponderada (Santos et al., UFBA; concepto inspirado en Meet Your Match de la ASPCA, sin copiar su material) | Retroalimentación de avances; aprobado por la instructora (2026-11-12) |
+| D-09 | Cuestionario ≤ 3 min: ~25 preguntas de un toque con saltos condicionales; se responde una sola vez y sirve para todos los animales | PO, 2026-11-06 |
+| D-10 | Flujo A: el cuestionario va antes del catálogo; "Descubrir" se ordena por % | PO, 2026-11-06 |
+| D-11 | Perfil Garritas: 3–4 perfiles con nombre e ilustración propios; no cambia el cálculo | PO, 2026-11-06 |
+| D-12 | Alcance recortado (secciones 7 y 9) por la fecha de entrega | Equipo, 2026-11-06 |
+| D-13 | No se piden identificación ni comprobante en el MVP; privacidad = aviso + consentimiento + reglas de seguridad + HTTPS | Equipo, 2026-11-06 |
+| D-14 | Acceso con correo y contraseña para ambos roles | Equipo, 2026-11-06 |
+| D-15 | Requerimientos singulares; no se renumera: el RF dividido conserva su ID y los nuevos van desde RF-13 | Instructora, 2026-11-06 |
+| D-16 | Se agrega RF-28 (detalle del animal) | PO, 2026-11-13 |
+| D-17 | Todo RF se redacta "El sistema debe + infinitivo + condición" | Retroalimentación del SRS, 2026-11-09 |
+| D-18 | Sin registro de albergue en la app: las cuentas las crea el equipo; no existe RF-29 | PO, 2026-11-13 |
+| D-19 | Tarjetas del SRS con la plantilla original y un solo caso no válido por RF | PO, 2026-11-13 |
+| D-20 | Mensajes de la app en segunda persona ("tú") | PO, 2026-11-13 |
+| D-21 | Registro del adoptante: nombre completo, correo, teléfono y contraseña; no se pide la edad | PO, 2026-11-13 |
+| D-22 | El aviso de privacidad incluye confirmar la mayoría de edad; la INE se verifica en persona | PO, 2026-11-13 |
+| D-23 | El % se calcula al abrir "Descubrir" y se guarda con la solicitud al enviarla | PO, 2026-11-13 |
+| D-24 | El cuestionario termina con el botón "Ver mi perfil Garritas" | PO, 2026-11-13 |
+| D-25 | Con < 30 %, "Match" muestra las dimensiones con menor coincidencia y "Esta mascota podría no adaptarse a tu estilo de vida" | PO, 2026-11-13 |
+| D-26 | Fotos desde cámara o galería; al menos una para publicar; el máximo se fija en F-02 | PO, 2026-11-13 |
+| D-27 | Prioridades v3.0: RF-12 sube a Must; RF-06 y RF-07 Could; RF-08, RI-03 y RI-04 Won't | PO, 2026-11-13 |
+| D-28 a D-35 | Ajustes del prototipo para alinearlo con el SRS v3.0: estado de error del aviso; registro sin "Confirmar contraseña"; Descubrir y Detalle solo con datos del alta; variante "Match · menos de 30 %"; estados Pendiente, Pre-aprobada y Rechazada con "Rechazar"; límite, "Cancelar solicitud" y WhatsApp fuera del MVP; asteriscos y cuidados de salud en el alta; datos de ejemplo (Wini y Luna) | PO, 2026-11-17 |
+| D-36 | Fotos comprimidas dentro de Cloud Firestore, con miniatura en la ficha (plan Spark, sin tarjeta) | Equipo, 2026-11-18 (`01-arquitectura.md` §2.1) |
+| D-37 | Sin servidor propio: el % se calcula en el teléfono y la protección de datos depende de las reglas de seguridad de Firestore | Equipo, 2026-11-18 (`01-arquitectura.md`) |
+
+## 11. Pendientes `[PENDIENTE]`
+| ID | Qué falta decidir | Quién decide | Bloquea |
+|---|---|---|---|
+| PO-04 | Dimensiones, preguntas, filtros no negociables, pesos y perfiles Garritas del algoritmo | PO (chat "Algoritmo") | F-02, F-04, F-05 |
+| PO-02 | Quién marca un animal como "Adoptado" y cuándo (no hay RF) | PO | F-03, F-08 |
+| PO-12 | Texto completo del aviso de privacidad (LFPDPPP) | Equipo | F-01 |
+| PO-21 | Textos del prototipo que el SRS no define (p. ej. "Ver mis matches", "Ver mis solicitudes") | PO | F-03, F-05, F-06, F-08 |
+| PO-22 | ¿Puede un adoptante enviar dos solicitudes al mismo animal? | PO | F-06 |
+| PO-01 | Rol del Voluntario (Could have) | PO | F-09 |
+| PO-09 | Campos de "Ofrecer casa temporal" vs. RF-06 (Could have) | PO | F-09 |
+| PO-08 | ¿Directorio, mapa o ambos? (Could have) | Equipo | F-10 |
+| PO-14 | Verificar el origen de la cita "30 mensajes al día, 25 no cumplen" | Equipo | — |
+| PO-15 | Resultados de la encuesta masiva | Equipo | — |
+| PO-16 | Fecha de entrega final | Equipo | Plan de sprints |
+
+Resueltos desde la v0.1: PO-03 y PO-13 (notificaciones → Won't), PO-05
+(acceso del adoptante → D-14), PO-06 (registro de albergue → D-18), PO-07
+(chat → Won't), PO-10 (documentos → D-13), PO-11 ("Mi perfil" → RF-19),
+PO-17 (fotos → D-36).
+
+## Historial de cambios
+| Versión | Fecha | Autoras | Cambio |
+|---|---|---|---|
+| 0.1 | 2026-11-06 | Paulina Mendoza Quiroz | Creación (bloques 1 a 3), con base en el SRS v2 |
+| 0.2 | 2026-11-18 | Paulina Mendoza Quiroz, Jennifer Salgado Pacheco | Alineación con el SRS v3.0: matchmaking explicable (D-08), Flujo A, 28 RF singulares, alcance recortado, decisiones D-08 a D-37 y pendientes actualizados |
