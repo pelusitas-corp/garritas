@@ -80,7 +80,7 @@ Se crean en el setup. Si alguno todavía no existe, avísanos.
 - `src/firebase/`: **único lugar** que habla con Auth y Firestore. Las
   pantallas no llaman a Firestore directamente.
 - `firestore.rules` y `tests/`.
-- `docs/privacidad/`: aviso de privacidad integral (PO-12, RF-25).
+- `docs/privacidad/`: aviso de privacidad integral y simplificado (PO-12, RF-25).
 
 ## Convenciones de código
 - Sin `any`, sin `@ts-ignore` y sin `eslint-disable`.

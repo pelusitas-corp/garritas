@@ -222,7 +222,7 @@ cada integrante trabaje sin pisar a la otra.
     │   └── compartido/       ← tema Soft UI, componentes base, tipos y mensajes
     ├── tests/                ← pruebas del motor y de las reglas de seguridad
     ├── firestore.rules       ← reglas de seguridad (§5)
-    ├── docs/privacidad/      ← aviso de privacidad integral (PO-12, RF-25)
+    ├── docs/privacidad/      ← aviso de privacidad integral y simplificado (PO-12, RF-25)
     ├── specs/                ← specs (SDD)
     ├── CLAUDE.md             ← instrucciones para Claude Code
     └── .env                  ← configuración de Firebase (no se sube)
