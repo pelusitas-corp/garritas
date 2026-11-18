@@ -3,7 +3,7 @@
 | Campo | Valor |
 |---|---|
 | Estado | Aprobada |
-| Versión | 0.2 |
+| Versión | 0.3 |
 | Fecha | 2026-11-18 |
 | Autoras | Paulina Mendoza Quiroz (Product Owner) y Jennifer Salgado Pacheco (Scrum Master) |
 | Fuentes | SRS v3.0 (ISO/IEC/IEEE 29148), Lista Consolidada v3.0, Lean Canvas, ENS P6, Registro de sesiones de elicitación, transcripciones E-1 a E-4, retroalimentación de la presentación de avances (2026-11-06), prototipo de Figma "Garritas" |
@@ -205,13 +205,14 @@ WhatsApp, fichas en papel y hojas de Excel.
 | D-28 a D-35 | Ajustes del prototipo para alinearlo con el SRS v3.0: estado de error del aviso; registro sin "Confirmar contraseña"; Descubrir y Detalle solo con datos del alta; variante "Match · menos de 30 %"; estados Pendiente, Pre-aprobada y Rechazada con "Rechazar"; límite, "Cancelar solicitud" y WhatsApp fuera del MVP; asteriscos y cuidados de salud en el alta; datos de ejemplo (Wini y Luna) | PO, 2026-11-17 |
 | D-36 | Fotos comprimidas dentro de Cloud Firestore, con miniatura en la ficha (plan Spark, sin tarjeta) | Equipo, 2026-11-18 (`01-arquitectura.md` §2.1) |
 | D-37 | Sin servidor propio: el % se calcula en el teléfono y la protección de datos depende de las reglas de seguridad de Firestore | Equipo, 2026-11-18 (`01-arquitectura.md`) |
+| D-38 | Antes de crear la cuenta (RF-25), la app muestra el aviso de privacidad **simplificado** con un enlace al aviso **integral**; ambos viven en `docs/privacidad/` | Equipo, 2026-11-18 |
 
 ## 11. Pendientes `[PENDIENTE]`
 | ID | Qué falta decidir | Quién decide | Bloquea |
 |---|---|---|---|
 | PO-04 | Dimensiones, preguntas, filtros no negociables, pesos y perfiles Garritas del algoritmo | PO (chat "Algoritmo") | F-02, F-04, F-05 |
 | PO-02 | Quién marca un animal como "Adoptado" y cuándo (no hay RF) | PO | F-03, F-08 |
-| PO-12 | Texto completo del aviso de privacidad (LFPDPPP) | Equipo | F-01 |
+| PO-12 | Texto completo del aviso de privacidad (LFPDPPP): borradores integral y simplificado en `docs/privacidad/` (D-38); falta fecha de publicación y pasarlo al SRS | Equipo | F-01 |
 | PO-21 | Textos del prototipo que el SRS no define (p. ej. "Ver mis matches", "Ver mis solicitudes") | PO | F-03, F-05, F-06, F-08 |
 | PO-22 | ¿Puede un adoptante enviar dos solicitudes al mismo animal? | PO | F-06 |
 | PO-01 | Rol del Voluntario (Could have) | PO | F-09 |
@@ -231,3 +232,4 @@ PO-17 (fotos → D-36).
 |---|---|---|---|
 | 0.1 | 2026-11-06 | Paulina Mendoza Quiroz | Creación (bloques 1 a 3), con base en el SRS v2 |
 | 0.2 | 2026-11-18 | Paulina Mendoza Quiroz, Jennifer Salgado Pacheco | Alineación con el SRS v3.0: matchmaking explicable (D-08), Flujo A, 28 RF singulares, alcance recortado, decisiones D-08 a D-37 y pendientes actualizados |
+| 0.3 | 2026-11-18 | Jennifer Salgado Pacheco, Paulina Mendoza Quiroz | D-38 (aviso simplificado con enlace al integral) y estado de PO-12 |
